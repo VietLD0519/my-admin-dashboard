@@ -20,3 +20,69 @@ Modular (Features):
 
 Mỗi tính năng lớn của dashboard (ví dụ: quản lý người dùng, quản lý sản phẩm, phân tích) sẽ là một module riêng biệt.
 Mỗi module sẽ có cấu trúc thư mục riêng, chứa các components, pages, use cases, và services liên quan đến tính năng đó. Điều này giúp tách biệt logic và dễ dàng quản lý.
+
+/src
+|-- /app (Nếu dùng App Router của Next.js)
+|   |-- /api # Route handlers cho backend (nếu cần)
+|   |-- /(admin) # Nhóm route cho dashboard admin
+|   |   |-- /dashboard
+|   |   |   |-- page.tsx
+|   |   |-- /users
+|   |   |   |-- page.tsx
+|   |   |   |-- /components
+|   |   |   |-- /[userId]
+|   |   |       |-- page.tsx
+|   |   |-- layout.tsx # Layout chung cho admin
+|   |-- /login
+|   |   |-- page.tsx
+|   |-- layout.tsx # Root layout
+|   |-- globals.css
+|-- /components # UI components dùng chung, không thuộc module nào
+|   |-- /common
+|   |   |-- Button.tsx
+|   |   |-- InputField.tsx
+|   |-- /layout
+|       |-- AdminLayout.tsx
+|       |-- AuthLayout.tsx
+|-- /contexts # React Contexts (ví dụ: AuthContext, ThemeContext)
+|-- /constants # Các hằng số
+|-- /core # Các logic cốt lõi, không thuộc module nào cụ thể
+|   |-- /domain
+|   |   |-- /entities
+|   |   |   |-- User.ts
+|   |   |-- /useCases # Use cases dùng chung hoặc cơ bản
+|   |-- /data
+|       |-- /repositories # Interfaces cho repositories
+|       |   |-- IAuthRepository.ts
+|       |-- /services # Implementations của repositories (API calls)
+|       |   |-- AuthService.ts
+|       |-- /models # Data models từ API
+|-- /features # Hoặc /modules - Chứa các module tính năng
+|   |-- /auth
+|   |   |-- /components
+|   |   |   |-- LoginForm.tsx
+|   |   |-- /services # Các hàm gọi API liên quan đến auth
+|   |   |-- /hooks # Custom hooks cho auth
+|   |   |-- /utils
+|   |-- /users
+|   |   |-- /components
+|   |   |   |-- UserTable.tsx
+|   |   |   |-- UserForm.tsx
+|   |   |-- /pages (Nếu dùng Pages Router) hoặc các route con trong /app
+|   |   |-- /services
+|   |   |-- /hooks
+|   |   |-- /types
+|   |-- /products
+|       |-- # (Tương tự users)
+|-- /hooks # Custom React hooks dùng chung
+|-- /lib # Các thư viện helper, utilities dùng chung
+|-- /providers # Providers cho Context, Theme, etc.
+|-- /store # (Tùy chọn) Nếu dùng state management library như Redux, Zustand
+|   |-- /slices # Ví dụ cho Redux Toolkit
+|-- /styles # Global styles, theme configuration
+|   |-- theme.ts # MUI theme configuration
+|-- /types # Global TypeScript types/interfaces
+|-- /utils # Utility functions dùng chung
+next.config.js
+tsconfig.json
+package.json
